@@ -18,6 +18,10 @@ app.doc('/doc', {
     apiReference({
         theme: 'deepSpace',
         layout: 'classic',
+        defaultHttpClient: {
+            targetKey: 'javascript',
+            clientKey: 'fetch',
+    },
       spec: {
         url: '/doc',
       },
