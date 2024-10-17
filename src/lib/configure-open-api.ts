@@ -17,6 +17,7 @@ app.doc('/doc', {
     '/reference',
     apiReference({
         theme: 'deepSpace',
+        layout: 'classic',
       spec: {
         url: '/doc',
       },
