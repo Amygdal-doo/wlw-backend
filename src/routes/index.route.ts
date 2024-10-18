@@ -12,7 +12,7 @@ const router = createRouter()
         responses: {
             [HttpStatusCodes.OK]: jsonContent(z.object({
                 message: z.string()
-            }),'WLW API INDEX - lol',)
+            }),'WLW API INDEX',)
         }
     }),(c) =>{
         const num = Math.floor(Math.random() * 10)
