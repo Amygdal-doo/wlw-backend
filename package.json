@@ -4,11 +4,11 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "start": "node ./dist/src/index.js",
+    "start": "tsx src/index.ts",
+    "build": "tsc -p .",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "lint:fix": "npm run lint --fix",
-    "build": "tsc && tsc-alias"
+    "lint:fix": "npm run lint --fix"
   },
   "dependencies": {
     "@hono/node-server": "^1.13.2",
