@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "lint": "eslint .",
+    "lint": "eslint src --ext .ts,.tsx",
     "lint:fix": "npm run lint --fix"
   },
   "dependencies": {
@@ -15,6 +15,7 @@
     "dotenv-expand": "^11.0.6",
     "hono": "^4.6.5",
     "hono-pino": "^0.3.0",
+    "mongoose": "^8.7.2",
     "pino": "^9.5.0",
     "pino-pretty": "^11.3.0",
     "stoker": "^1.2.7",

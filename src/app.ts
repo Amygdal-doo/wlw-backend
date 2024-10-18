@@ -12,8 +12,9 @@ const routes = [
 // The OpenAPI documentation will be available at /doc
 configureOpenApi(app)
 
+// Every route will be available at /
 routes.forEach((route) => {
-    app.route('/',route)
+    app.route('/api/',route)
 })
 
 export default app

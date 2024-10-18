@@ -7,7 +7,9 @@ expand(config())
 export const EnvSchema = z.object({
     NODE_ENV: z.string().default('development'),
     PORT: z.coerce.number().default(3000),
-    LOG_LEVEL: z.enum(["fatal" , "error" , "warn" , "info" , "debug" , "trace"])
+    LOG_LEVEL: z.enum(["fatal" , "error" , "warn" , "info" , "debug" , "trace"]),
+    DB_URL: z.string().url('Invalid database url'),
+
 })
 
 export type env = z.infer<typeof EnvSchema>
@@ -17,7 +19,7 @@ try {
     env = EnvSchema.parse(process.env)
 } catch (e) {
     const error = e as z.ZodError
-    console.error('Invalid environment variables')
+    console.error('Invalid environment variables: ')
     console.error(error.flatten().fieldErrors)
     process.exit(1)
 }
