@@ -14,9 +14,9 @@ export function createRouter() {
 }
 
 
-const app = createRouter()
 export default function createApp() {
-    const app = new OpenAPIHono<AppBindings>()
+    // const app = new OpenAPIHono<AppBindings>()
+    const app = createRouter()
     app.use(pinnoLogger())
 
     app.notFound(notFound)
