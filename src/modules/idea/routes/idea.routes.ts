@@ -1,4 +1,4 @@
-import { IdeaZodSchema } from "@/db/models/ideas.schema";
+import { IdeaZodSchema } from "@/modules/idea/schemas/ideas.schema";
 import { notFoundSchema } from "@/lib/constants";
 import { createRoute, z } from "@hono/zod-openapi";
 import * as HttpStatusCodes from 'stoker/http-status-codes'

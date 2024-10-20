@@ -1,5 +1,5 @@
 import { createRouter } from "@/lib/create-app";
-import * as handlers from "./idea.handler"
+import * as handlers from "../handlers/idea.handler"
 import * as routes from "./idea.routes"
 
 const router = createRouter()

@@ -1,9 +1,9 @@
 import createApp from '@/lib/create-app'
 import configureOpenApi from '@/lib/configure-open-api'
 
-import index from '@/routes/index.route'
-import user from '@/routes/user/user.index'
-import idea from '@/routes/idea/idea.index'
+import index from '@/modules/root/routes/index.route'
+import user from '@/modules/user/routes'
+import idea from '@/modules/idea/routes'
 
 const app = createApp()
 

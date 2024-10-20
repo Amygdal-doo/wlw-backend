@@ -1,4 +1,4 @@
-import { getOneUserParamSchema, createUserSchema, userZodSchema, patchUserSchema } from "@/db/models/user.schema";
+import { getOneUserParamSchema, createUserSchema, userZodSchema, patchUserSchema } from "@/modules/user/schemas/user.schema";
 import { notFoundSchema } from "@/lib/constants";
 import { createRoute, z } from "@hono/zod-openapi";
 import * as mongoose from "mongoose";

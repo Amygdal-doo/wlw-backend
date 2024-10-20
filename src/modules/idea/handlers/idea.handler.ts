@@ -1,10 +1,10 @@
-import UserModel from "@/db/models/user.schema";
-import type { IdeaListRoute } from "./idea.routes";
+import UserModel from "@/modules/user/schemas/user.schema";
+import type { IdeaListRoute } from "../routes/idea.routes";
 import { AppRouteHandler } from "@/lib/types";
 import  * as HttpStatusCodes  from "stoker/http-status-codes";
 import * as HttpStatusPhrases from 'stoker/http-status-phrases';
 import mongoose from "mongoose";
-import IdeaModel, { IdeaZodType } from "@/db/models/ideas.schema";
+import IdeaModel, { IdeaZodType } from "@/modules/idea/schemas/ideas.schema";
 
 export const IdeasList: AppRouteHandler<IdeaListRoute> = async (ctx) => {
 

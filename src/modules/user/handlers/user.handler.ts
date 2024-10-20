@@ -1,5 +1,5 @@
-import UserModel from "@/db/models/user.schema";
-import type { UserCreateRoute, UserDeleteRoute, UserGetOneRoute, UserListRoute, UserPatchRoute } from "./user.routes";
+import UserModel from "@/modules/user/schemas/user.schema";
+import type { UserCreateRoute, UserDeleteRoute, UserGetOneRoute, UserListRoute, UserPatchRoute } from "../routes/user.routes";
 import { AppRouteHandler } from "@/lib/types";
 import  * as HttpStatusCodes  from "stoker/http-status-codes";
 import * as HttpStatusPhrases from 'stoker/http-status-phrases';
