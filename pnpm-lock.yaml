@@ -20,6 +20,9 @@ importers:
       '@scalar/hono-api-reference':
         specifier: ^0.5.155
         version: 0.5.155(hono@4.6.5)
+      '@zodyac/zod-mongoose':
+        specifier: ^3.0.0
+        version: 3.0.0
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
@@ -567,6 +570,9 @@ packages:
 
   '@vue/shared@3.5.12':
     resolution: {integrity: sha512-L2RPSAwUFbgZH20etwrXyVyCBu9OxRSi8T/38QsvnkJyvq2LufW2lDCOzm7t/U9C1mkhJGWYfCuFBCmIuNivrg==}
+
+  '@zodyac/zod-mongoose@3.0.0':
+    resolution: {integrity: sha512-eHbmEBx96q0uHqGvacwF4w+6l2/FzfAun6fTXmh25JKXjhjywVLE5/o7ApKXMCbI90FeGGHXxcuFY0Qazc8KUA==}
 
   abort-controller@3.0.0:
     resolution: {integrity: sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==}
@@ -2430,6 +2436,20 @@ snapshots:
       '@vue/shared': 3.5.12
 
   '@vue/shared@3.5.12': {}
+
+  '@zodyac/zod-mongoose@3.0.0':
+    dependencies:
+      mongoose: 8.7.2
+      zod: 3.23.8
+    transitivePeerDependencies:
+      - '@aws-sdk/credential-providers'
+      - '@mongodb-js/zstd'
+      - gcp-metadata
+      - kerberos
+      - mongodb-client-encryption
+      - snappy
+      - socks
+      - supports-color
 
   abort-controller@3.0.0:
     dependencies:

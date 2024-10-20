@@ -3,13 +3,15 @@ import configureOpenApi from '@/lib/configure-open-api'
 
 import index from '@/routes/index.route'
 import user from '@/routes/user/user.index'
+import idea from '@/routes/idea/idea.index'
 
 const app = createApp()
 
 // 2 Way to do it
 const routes = [
     index,
-    user
+    user,
+    idea
 ] as const; // this lets typescript know it wont change at runtime
 
 // The OpenAPI documentation will be available at /doc

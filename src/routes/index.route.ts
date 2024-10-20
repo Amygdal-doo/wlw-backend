@@ -15,8 +15,7 @@ const router = createRouter()
             }),'WLW API INDEX',)
         }
     }),(c) =>{
-        const num = Math.floor(Math.random() * 10)
-        return c.json({ message: 'WLW API: ' + num }, HttpStatusCodes.OK)
+        return c.json({ message: 'WLW API' }, HttpStatusCodes.OK)
     })
 
 export default router
