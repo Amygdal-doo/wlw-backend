@@ -1,4 +1,4 @@
-import type { CreateIdeaSchemaType } from '../schemaValidations/create-idea.schema'
+import type { CreateIdeaSchemaType } from '../validations/create-idea.schema'
 import IdeaModel from '../schemas/ideas.schema'
 
 export async function findAll() {

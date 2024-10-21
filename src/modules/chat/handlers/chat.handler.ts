@@ -1,7 +1,7 @@
 import type { AppRouteHandler } from '@/lib/types'
 import type { ChatCompletionMessageParam } from 'openai/resources/index.mjs'
 import type { ChatRouteType } from '../routes/chat.routes'
-import type { RequestBodyChatZodType } from '../schemaValidations/messages.schema'
+import type { RequestBodyChatZodType } from '../validations/messages.schema'
 import { completion } from '@/lib/open-ai'
 import * as userService from '@/modules/user/services/user.service'
 import * as HttpStatusCodes from 'stoker/http-status-codes'

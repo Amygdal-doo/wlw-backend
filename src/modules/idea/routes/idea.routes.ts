@@ -1,10 +1,10 @@
 import { notFoundSchema } from '@/lib/constants'
-import { IdeaSchemaZod } from '@/modules/idea/schemaValidations/idea.schema'
+import { IdeaSchemaZod } from '@/modules/idea/validations/idea.schema'
 import { createRoute, z } from '@hono/zod-openapi'
 import * as HttpStatusCodes from 'stoker/http-status-codes'
 import { jsonContent, jsonContentOneOf, jsonContentRequired } from 'stoker/openapi/helpers'
 import { createErrorSchema } from 'stoker/openapi/schemas'
-import { CreateIdeaSchemaZod } from '../schemaValidations/create-idea.schema'
+import { CreateIdeaSchemaZod } from '../validations/create-idea.schema'
 
 const tags = ['Idea']
 

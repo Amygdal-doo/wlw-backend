@@ -1,4 +1,4 @@
-import type { MessageZodType } from '@/modules/chat/schemaValidations/messages.schema'
+import type { MessageZodType } from '@/modules/chat/validations/messages.schema'
 import type { ChatCompletionMessageParam } from 'openai/resources/index.mjs'
 import env from '@/env'
 import OpenAI from 'openai'
@@ -10,19 +10,18 @@ export const openai = new OpenAI({
 export async function completion(msg: ChatCompletionMessageParam, msgs: ChatCompletionMessageParam[]) {
   const responses = await openai.chat.completions.create({
     model: 'gpt-4o-mini',
+    // model: 'gpt-4',
     messages: [
-      { role: 'system', content: 'You are a helpful assistant.That will brainstorm Ideas with User.' },
+      { role: 'system', content: 'You are a helpful assistant.That will brainstorm Ideas with user.' },
       ...msgs,
       msg,
     ],
   })
 
-  // console.log(responses.choices)
-
-  // console.log(responses)
+  const aiResponse = responses.choices[0].message
 
   return {
-    content: responses.choices[0].message.content,
-    role: responses.choices[0].message.role,
+    content: aiResponse.content ?? '', // Ensure content is a string
+    role: aiResponse.role ?? 'assistant', // Default role to assistant
   }
 }

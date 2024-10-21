@@ -1,12 +1,12 @@
 import { notFoundSchema } from '@/lib/constants'
-import { UserZodSchemaZod } from '@/modules/user/schemaValidations/user.schema'
+import { UserZodSchemaZod } from '@/modules/user/validations/user.schema'
 import { createRoute, z } from '@hono/zod-openapi'
 import * as HttpStatusCodes from 'stoker/http-status-codes'
 import { jsonContent, jsonContentOneOf, jsonContentRequired } from 'stoker/openapi/helpers'
 import { createErrorSchema } from 'stoker/openapi/schemas'
-import { CreateUserSchemaZod } from '../schemaValidations/create-user.schema'
-import { IdUserParamSchemaZod } from '../schemaValidations/id-user.param.schema'
-import { PatchUserSchemaZod } from '../schemaValidations/patch-user.schema'
+import { CreateUserSchemaZod } from '../validations/create-user.schema'
+import { IdUserParamSchemaZod } from '../validations/id-user.param.schema'
+import { PatchUserSchemaZod } from '../validations/patch-user.schema'
 
 const tags = ['User']
 

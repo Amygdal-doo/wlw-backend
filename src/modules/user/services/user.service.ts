@@ -1,5 +1,5 @@
-import type { CreateUserType } from '../schemaValidations/create-user.schema'
-import type { UpdateUserType } from '../schemaValidations/patch-user.schema'
+import type { CreateUserType } from '../validations/create-user.schema'
+import type { UpdateUserType } from '../validations/patch-user.schema'
 import UserModel from '../schemas/user.schema'
 
 export async function findAll() {

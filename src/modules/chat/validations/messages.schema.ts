@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const MessageSchemaZod = z.object({
-  role: z.string(),
+  role: z.enum(['system', 'user', 'assistant']),
   content: z.string(),
   name: z.string().optional(),
 })

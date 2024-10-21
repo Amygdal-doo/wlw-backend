@@ -1,10 +1,10 @@
 import { notFoundSchema } from '@/lib/constants'
-import { IdUserParamSchemaZod } from '@/modules/user/schemaValidations/id-user.param.schema'
+import { IdUserParamSchemaZod } from '@/modules/user/validations/id-user.param.schema'
 import { createRoute } from '@hono/zod-openapi'
 import * as HttpStatusCodes from 'stoker/http-status-codes'
 import { jsonContent, jsonContentOneOf, jsonContentRequired } from 'stoker/openapi/helpers'
 import { createErrorSchema } from 'stoker/openapi/schemas'
-import { RequestBodyChatSchemaZod } from '../schemaValidations/messages.schema'
+import { RequestBodyChatSchemaZod } from '../validations/messages.schema'
 
 const tags = ['Chat']
 

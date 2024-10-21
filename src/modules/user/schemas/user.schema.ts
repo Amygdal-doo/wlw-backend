@@ -1,5 +1,5 @@
 import type { z } from 'zod'
-import type { UserZodSchemaZod } from '../schemaValidations/user.schema'
+import type { UserZodSchemaZod } from '../validations/user.schema'
 import { model, Schema } from 'mongoose'
 
 // For TypeScript type inference

@@ -1,4 +1,4 @@
-import type { IdeaSchemaZod } from '@/modules/idea/schemaValidations/idea.schema'
+import type { IdeaSchemaZod } from '@/modules/idea/validations/idea.schema'
 import type { z } from 'zod'
 import mongoose, { model, Schema } from 'mongoose'
 
