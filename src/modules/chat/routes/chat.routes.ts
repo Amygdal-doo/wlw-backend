@@ -4,8 +4,7 @@ import { createRoute } from '@hono/zod-openapi'
 import * as HttpStatusCodes from 'stoker/http-status-codes'
 import { jsonContent, jsonContentOneOf, jsonContentRequired } from 'stoker/openapi/helpers'
 import { createErrorSchema } from 'stoker/openapi/schemas'
-import { z } from 'zod'
-import { MessageArraySchemaZod, MessageSchemaZod } from '../schemaValidations/messages.schema'
+import { RequestBodyChatSchemaZod } from '../schemaValidations/messages.schema'
 
 const tags = ['Chat']
 
@@ -17,18 +16,18 @@ export const chat = createRoute({
   request: {
     params: IdUserParamSchemaZod,
     body: jsonContentRequired(
-      MessageArraySchemaZod,
+      RequestBodyChatSchemaZod,
       'The Message Data',
     ),
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
-      MessageArraySchemaZod,
+      RequestBodyChatSchemaZod,
       'The updated Chat',
     ),
     [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContentOneOf(
       [
-        createErrorSchema(MessageSchemaZod),
+        createErrorSchema(RequestBodyChatSchemaZod),
         createErrorSchema(IdUserParamSchemaZod),
       ],
       'The validation error(s)',

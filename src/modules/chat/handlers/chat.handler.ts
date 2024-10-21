@@ -1,6 +1,8 @@
 import type { AppRouteHandler } from '@/lib/types'
-import type { chat, ChatRouteType } from '../routes/chat.routes'
-import type { MessageZodType } from '../schemaValidations/messages.schema'
+import type { ChatCompletionMessageParam } from 'openai/resources/index.mjs'
+import type { ChatRouteType } from '../routes/chat.routes'
+import type { RequestBodyChatZodType } from '../schemaValidations/messages.schema'
+import { completion } from '@/lib/open-ai'
 import * as userService from '@/modules/user/services/user.service'
 import * as HttpStatusCodes from 'stoker/http-status-codes'
 import * as HttpStatusPhrases from 'stoker/http-status-phrases'
@@ -13,13 +15,13 @@ import * as HttpStatusPhrases from 'stoker/http-status-phrases'
 
 export const chatHandler: AppRouteHandler<ChatRouteType> = async (ctx) => {
   const { id } = ctx.req.valid('param')
-  const message = ctx.req.valid('json')
+  const { message, messages } = ctx.req.valid('json')
 
-  const defaultMessage: MessageZodType = {
-    role: 'system',
-    content: 'You are a helpful assistant.That will brainstorm Ideas with User.',
-  }
-  const toChatBot = [defaultMessage, ...message]
+  const msgs: ChatCompletionMessageParam[] = messages !== undefined ? messages : []
+  const msg: ChatCompletionMessageParam = message
+  const aiResponse = await completion(msg, msgs)
+
+  const responseBody: RequestBodyChatZodType = { message: aiResponse, messages: [...msgs, message, aiResponse] }
 
   const user = await userService.findOne(id.toString())
   if (!user) {
@@ -27,5 +29,5 @@ export const chatHandler: AppRouteHandler<ChatRouteType> = async (ctx) => {
     )
   }
 
-  return ctx.json(toChatBot, HttpStatusCodes.OK)
+  return ctx.json(responseBody, HttpStatusCodes.OK)
 }
