@@ -21,6 +21,7 @@
     "hono": "^4.6.5",
     "hono-pino": "^0.3.0",
     "mongoose": "^8.7.2",
+    "openai": "^4.68.1",
     "pino": "^9.5.0",
     "pino-pretty": "^11.3.0",
     "stoker": "^1.2.7",
