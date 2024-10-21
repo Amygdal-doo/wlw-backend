@@ -1,38 +1,21 @@
-import mongoose, { Schema, model } from 'mongoose';
-import { z } from 'zod';
-import { extendZod, zId } from "@zodyac/zod-mongoose";
-
-extendZod(z);
-
-export const IdeaZodSchema = z.object({
-    _id: z.string(),
-    content: z.string(),
-    user: zId("User"),
-    createdAt: z.date(),
-    updatedAt: z.date()
-});
-
-export const createIdeaSchema = z.object({
-    content: z.string(),
-    user: zId("User"),
-});
-
+import type { IdeaSchemaZod } from '@/modules/idea/schemaValidations/idea.schema'
+import type { z } from 'zod'
+import mongoose, { model, Schema } from 'mongoose'
 
 // For TypeScript type inference
-export type IdeaZodType = z.infer<typeof IdeaZodSchema>;
-
+export type IdeaZodType = z.infer<typeof IdeaSchemaZod>
 
 // 2. Create a Schema corresponding to the document interface.
 const IdeaSchema = new Schema<IdeaZodType>({
   content: { type: String, required: true },
-  user: { 
-    type: mongoose.Schema.Types.ObjectId, 
-    ref: 'User',  // Reference to the User model
-    required: true
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User', // Reference to the User model
+    required: true,
   },
-},{ timestamps: true });
+}, { timestamps: true })
 
 // 3. Create a Model.
-const IdeaModel = model<IdeaZodType>('Idea', IdeaSchema);
+const IdeaModel = model<IdeaZodType>('Idea', IdeaSchema)
 
 export default IdeaModel

@@ -1,8 +1,8 @@
-import mongoose from 'mongoose';
-import env from '@/env';
+/* eslint-disable no-console */
+import env from '@/env'
+import mongoose from 'mongoose'
 
 export default () => {
-  
 /**
  * Establishes a connection to the MongoDB database using the
  * connection string specified in the environment variables.
@@ -16,17 +16,18 @@ export default () => {
         env.DB_URL,
       )
       .then(() => {
-        return console.info(`Successfully connected to MongoDB...`);
+        return console.info(`Successfully connected to MongoDB...`)
       })
-      .catch(error => {
-        console.error('Error connecting to database: ', error);
-        return process.exit(1);
-      });
-  };
-  connect();
+      .catch((error) => {
+        console.error('Error connecting to database: ', error)
+        // eslint-disable-next-line node/prefer-global/process
+        return process.exit(1)
+      })
+  }
+  connect()
 
-  mongoose.connection.on('disconnected', connect);
-};
+  mongoose.connection.on('disconnected', connect)
+}
 
 // import mongoose from 'mongoose';
 // import env from '@/env';

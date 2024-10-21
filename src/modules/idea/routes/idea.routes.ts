@@ -1,21 +1,50 @@
-import { IdeaZodSchema } from "@/modules/idea/schemas/ideas.schema";
-import { notFoundSchema } from "@/lib/constants";
-import { createRoute, z } from "@hono/zod-openapi";
+import { notFoundSchema } from '@/lib/constants'
+import { IdeaSchemaZod } from '@/modules/idea/schemaValidations/idea.schema'
+import { createRoute, z } from '@hono/zod-openapi'
 import * as HttpStatusCodes from 'stoker/http-status-codes'
-import { jsonContent, jsonContentOneOf, jsonContentRequired } from "stoker/openapi/helpers";
-import { createErrorSchema } from "stoker/openapi/schemas";
+import { jsonContent, jsonContentOneOf, jsonContentRequired } from 'stoker/openapi/helpers'
+import { createErrorSchema } from 'stoker/openapi/schemas'
+import { CreateIdeaSchemaZod } from '../schemaValidations/create-idea.schema'
 
-const tags =  ['Idea']
+const tags = ['Idea']
 
 export const ideasList = createRoute({
-    path: '/idea',
-    method: 'get',
-    tags,
-    summary: 'Ideas list',
-    responses: {
-        [HttpStatusCodes.OK]: jsonContent(z.array(IdeaZodSchema
-    ),'The ideas list',)
-    }
+  path: '/idea',
+  method: 'get',
+  tags,
+  summary: 'Ideas list',
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(z.array(IdeaSchemaZod,
+    ), 'The ideas list'),
+  },
 })
 
-export type IdeaListRoute = typeof ideasList;
+export const createIdea = createRoute({
+  path: '/idea',
+  method: 'post',
+  tags,
+  summary: 'Save an idea',
+  request: {
+    body: jsonContentRequired(
+      CreateIdeaSchemaZod,
+      'The idea data',
+    ),
+  },
+  responses: {
+    [HttpStatusCodes.CREATED]: jsonContent(
+      IdeaSchemaZod,
+      'The created idea',
+    ),
+    [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
+      createErrorSchema(IdeaSchemaZod),
+      'The validation error(s)',
+    ),
+    [HttpStatusCodes.NOT_FOUND]: jsonContent(
+      notFoundSchema,
+      'User not found',
+    ),
+  },
+})
+
+export type IdeaListRoute = typeof ideasList
+export type CreateIdeaRoute = typeof createIdea
