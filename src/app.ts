@@ -28,8 +28,9 @@ configureOpenApi(app)
 //     .route('/api/', index)
 //     .route('/api/', user)
 
-app.use('/api/users/*', (c, next) => {
+app.use('/api/auth/login', (c, next) => {
   c.set('message', 'costum message edited')
+
   return next()
 })
 

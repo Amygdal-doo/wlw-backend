@@ -1,4 +1,4 @@
-import type { CreateUserType } from '../validations/create-user.schema'
+import type { RegisterUserType } from '../validations/create-user.schema'
 import type { UpdateUserType } from '../validations/patch-user.schema'
 import UserModel from '../schemas/user.schema'
 
@@ -7,7 +7,7 @@ export async function findAll() {
   return users
 }
 
-export async function create(userData: CreateUserType) {
+export async function create(userData: RegisterUserType) {
   const user = await UserModel.create(userData)
   return user
 }
@@ -18,7 +18,7 @@ export async function findOneByUsername(username: string) {
 }
 
 export async function findOneByEmail(email: string) {
-  const user = await UserModel.findOne({ email })
+  const user = await UserModel.findOne({ email }).select('+password')
   return user
 }
 

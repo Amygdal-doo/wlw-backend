@@ -1,7 +1,7 @@
 import type { z } from 'zod'
-import { CreateUserSchemaZod } from './create-user.schema'
+import { RegisterUserSchemaZod } from './create-user.schema'
 
-export const PatchUserSchemaZod = CreateUserSchemaZod
+export const PatchUserSchemaZod = RegisterUserSchemaZod
   .partial()
 
 export type UpdateUserType = z.infer<typeof PatchUserSchemaZod>

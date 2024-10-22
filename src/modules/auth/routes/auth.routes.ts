@@ -1,10 +1,11 @@
-import { conflictSchema, notFoundSchema } from '@/lib/constants'
-import { CreateUserSchemaZod } from '@/modules/user/validations/create-user.schema'
+import { badRequestSchema, conflictSchema, notFoundSchema, unauthorizedSchema } from '@/lib/constants'
+import { RegisterUserSchemaZod, UserLoginSchemaZod } from '@/modules/user/validations/create-user.schema'
 import { UserResponseSchemaZod } from '@/modules/user/validations/user.schema'
 import { createRoute, z } from '@hono/zod-openapi'
 import * as HttpStatusCodes from 'stoker/http-status-codes'
 import { jsonContent, jsonContentOneOf, jsonContentRequired } from 'stoker/openapi/helpers'
 import { createErrorSchema } from 'stoker/openapi/schemas'
+import { LoginResponseSchemaZod } from '../validations/login-response.schema'
 
 const tags = ['Auth']
 
@@ -15,7 +16,7 @@ export const register = createRoute({
   summary: 'User Registration',
   request: {
     body: jsonContentRequired(
-      CreateUserSchemaZod,
+      RegisterUserSchemaZod,
       'The User Registering Data',
     ),
   },
@@ -25,7 +26,7 @@ export const register = createRoute({
       'The Registered User',
     ),
     [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
-      createErrorSchema(CreateUserSchemaZod),
+      createErrorSchema(RegisterUserSchemaZod),
       'The validation error(s)',
     ),
     [HttpStatusCodes.CONFLICT]: jsonContent(
@@ -35,4 +36,32 @@ export const register = createRoute({
   },
 })
 
+export const login = createRoute({
+  path: '/auth/login',
+  method: 'post',
+  tags,
+  summary: 'User login',
+  request: {
+    body: jsonContentRequired(
+      UserLoginSchemaZod,
+      'The User login Data',
+    ),
+  },
+  responses: {
+    [HttpStatusCodes.CREATED]: jsonContent(
+      LoginResponseSchemaZod,
+      'The Logged User',
+    ),
+    [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
+      createErrorSchema(RegisterUserSchemaZod),
+      'The validation error(s)',
+    ),
+    [HttpStatusCodes.UNAUTHORIZED]: jsonContent(
+      unauthorizedSchema,
+      'Wrong credentials',
+    ),
+  },
+})
+
 export type RegisterRouteType = typeof register
+export type LoginRouteType = typeof login
