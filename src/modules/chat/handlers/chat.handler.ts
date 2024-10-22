@@ -17,7 +17,7 @@ export const chatHandler: AppRouteHandler<ChatRouteType> = async (ctx) => {
   const { id } = ctx.req.valid('param')
   const { message, messages } = ctx.req.valid('json')
 
-  const msgs: ChatCompletionMessageParam[] = messages !== undefined ? messages : []
+  const msgs = messages !== undefined ? messages : []
   const msg: ChatCompletionMessageParam = message
   const aiResponse = await completion(msg, msgs)
 

@@ -10,6 +10,8 @@ export const EnvSchema = z.object({
   LOG_LEVEL: z.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'silent']),
   DB_URL: z.string().url('Invalid database url'),
   OPENAI_API_KEY: z.string(),
+  JWT_SECRET: z.string(),
+  ACCESS_TOKEN_EXPIRES_IN: z.coerce.number().default(120), // .transform(val => Number(val)).default(120),
   // OPTIONAL_ENV_IN_DEVELOPMENT: z.string().optional()
 })
 // .refine((input) => {
@@ -35,6 +37,7 @@ export type env = z.infer<typeof EnvSchema>
 
 let env: env
 try {
+  // eslint-disable-next-line node/prefer-global/process
   env = EnvSchema.parse(process.env)
 }
 catch (e) {

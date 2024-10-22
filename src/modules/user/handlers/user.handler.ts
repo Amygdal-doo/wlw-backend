@@ -5,16 +5,19 @@ import * as HttpStatusPhrases from 'stoker/http-status-phrases'
 import * as userService from '../services/user.service'
 
 export const userList: AppRouteHandler<UserListRoute> = async (ctx) => {
+  // eslint-disable-next-line no-console
+  console.log(`MESSAGE LIST: ${ctx.get('message')}`)
+
   const result = await userService.findAll()
   return ctx.json(result, HttpStatusCodes.OK)
 }
 
-export const registerUser: AppRouteHandler<UserCreateRoute> = async (ctx) => {
-  const user = ctx.req.valid('json')
-  const result = await userService.create(user)
-  // ctx.status(201)
-  return ctx.json(result, HttpStatusCodes.CREATED)
-}
+// export const createUser: AppRouteHandler<UserCreateRoute> = async (ctx) => {
+//   const user = ctx.req.valid('json')
+//   const result = await userService.create(user)
+//   // ctx.status(201)
+//   return ctx.json(result, HttpStatusCodes.CREATED)
+// }
 
 export const getOneUser: AppRouteHandler<UserGetOneRoute> = async (ctx) => {
   const { id } = ctx.req.valid('param')

@@ -1,3 +1,4 @@
+/** ***********  ✨ Codeium Command 🌟  */
 import { z } from 'zod'
 
 export const UserZodSchemaZod = z.object({
@@ -13,3 +14,8 @@ export const UserZodSchemaZod = z.object({
   createdAt: z.date(),
   updatedAt: z.date(),
 })
+
+export const UserResponseSchemaZod = UserZodSchemaZod.partial().omit({ password: true })
+
+export type UserZodType = z.infer<typeof UserZodSchemaZod>
+export type UserResponseType = z.infer<typeof UserResponseSchemaZod>

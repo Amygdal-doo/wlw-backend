@@ -7,9 +7,9 @@ export type UserZodType = z.infer<typeof UserZodSchemaZod>
 
 // 2. Create a Schema corresponding to the document interface.
 const UserSchema = new Schema<UserZodType>({
-  username: { type: String, required: true },
-  email: { type: String, required: true },
-  password: { type: String, required: true },
+  username: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true, select: false },
 }, { timestamps: true })
 
 // 3. Create a Model.

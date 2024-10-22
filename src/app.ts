@@ -1,10 +1,12 @@
 import configureOpenApi from '@/lib/configure-open-api'
 import createApp from '@/lib/create-app'
 
+import auth from '@/modules/auth/routes'
 import chat from '@/modules/chat/routes'
 import idea from '@/modules/idea/routes'
 import index from '@/modules/root/routes/index.route'
 import user from '@/modules/user/routes'
+import { jwt } from 'hono/jwt'
 
 const app = createApp()
 
@@ -12,6 +14,7 @@ const app = createApp()
 const routes = [
   index,
   user,
+  auth,
   idea,
   chat,
 ] as const // this lets typescript know it wont change at runtime
@@ -24,6 +27,18 @@ configureOpenApi(app)
 // const _app = app
 //     .route('/api/', index)
 //     .route('/api/', user)
+
+app.use('/api/users/*', (c, next) => {
+  c.set('message', 'costum message edited')
+  return next()
+})
+
+app.use(
+  '/auth/*',
+  jwt({
+    secret: 'it-is-very-secret',
+  }),
+)
 
 // Every route will be available at /
 routes.forEach((route) => {

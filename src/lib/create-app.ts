@@ -18,6 +18,11 @@ export default function createApp() {
   const app = createRouter()
   app.use(pinnoLogger())
 
+  // app.use((c, next) => {
+  //   c.set('message', 'costum message')
+  //   return next()
+  // })
+
   app.notFound(notFound)
   app.onError(onError)
 
