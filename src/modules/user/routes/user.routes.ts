@@ -4,7 +4,7 @@ import { createRoute, z } from '@hono/zod-openapi'
 import * as HttpStatusCodes from 'stoker/http-status-codes'
 import { jsonContent, jsonContentOneOf, jsonContentRequired } from 'stoker/openapi/helpers'
 import { createErrorSchema } from 'stoker/openapi/schemas'
-import { CreateUserSchemaZod } from '../validations/create-user.schema'
+import { RegisterUserSchemaZod } from '../validations/create-user.schema'
 import { IdUserParamSchemaZod } from '../validations/id-user.param.schema'
 import { PatchUserSchemaZod } from '../validations/patch-user.schema'
 
@@ -54,7 +54,7 @@ export const userCreate = createRoute({
   summary: 'User Registration',
   request: {
     body: jsonContentRequired(
-      CreateUserSchemaZod,
+      RegisterUserSchemaZod,
       'The User Registering Data',
     ),
   },
@@ -64,7 +64,7 @@ export const userCreate = createRoute({
       'The Registered User',
     ),
     [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
-      createErrorSchema(CreateUserSchemaZod),
+      createErrorSchema(RegisterUserSchemaZod),
       'The validation error(s)',
     ),
   },
@@ -89,7 +89,7 @@ export const userUpdate = createRoute({
     ),
     [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContentOneOf(
       [
-        createErrorSchema(CreateUserSchemaZod),
+        createErrorSchema(RegisterUserSchemaZod),
         createErrorSchema(IdUserParamSchemaZod),
       ],
       'The validation error(s)',
