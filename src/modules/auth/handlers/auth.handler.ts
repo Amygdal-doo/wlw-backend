@@ -28,10 +28,14 @@ export const registerUser: AppRouteHandler<RegisterRouteType> = async (ctx) => {
     password: await authService.hashPassword(user.password),
   }
 
-  const { password, ...newUser } = await userService.create(createUser)
+  const newUser = await userService.create(createUser)
 
   const result: UserResponseType = {
-    ...newUser,
+    _id: newUser._id,
+    username: newUser.username,
+    email: newUser.email,
+    createdAt: newUser.createdAt,
+    updatedAt: newUser.updatedAt,
   }
   // ctx.status(201)
   return ctx.json(result, HttpStatusCodes.CREATED)

@@ -8,7 +8,8 @@ export async function findAll() {
 }
 
 export async function create(userData: CreateUserType) {
-  return UserModel.create(userData)
+  const user = await UserModel.create(userData)
+  return user
 }
 
 export async function findOneByUsername(username: string) {
