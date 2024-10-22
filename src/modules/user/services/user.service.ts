@@ -8,12 +8,21 @@ export async function findAll() {
 }
 
 export async function create(userData: CreateUserType) {
-  const newUser = await UserModel.create(userData)
-  return newUser
+  return UserModel.create(userData)
+}
+
+export async function findOneByUsername(username: string) {
+  const user = await UserModel.findOne({ username })
+  return user
+}
+
+export async function findOneByEmail(email: string) {
+  const user = await UserModel.findOne({ email })
+  return user
 }
 
 export async function findOne(id: string) {
-  const user = await UserModel.findById(id)
+  const user = await UserModel.findById(id).select('-password')
   return user
 }
 

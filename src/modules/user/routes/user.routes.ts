@@ -1,4 +1,4 @@
-import { notFoundSchema } from '@/lib/constants'
+import { conflictSchema, notFoundSchema } from '@/lib/constants'
 import { UserZodSchemaZod } from '@/modules/user/validations/user.schema'
 import { createRoute, z } from '@hono/zod-openapi'
 import * as HttpStatusCodes from 'stoker/http-status-codes'
