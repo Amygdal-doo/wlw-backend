@@ -6,20 +6,16 @@ import chat from '@/modules/chat/routes'
 import idea from '@/modules/idea/routes'
 import index from '@/modules/root/routes/index.route'
 import user from '@/modules/user/routes'
-import { bearerAuth } from 'hono/bearer-auth'
 import { cors } from 'hono/cors'
-import { jwt } from 'hono/jwt'
-import { verify } from 'hono/utils/jwt/jwt'
-import env from './env'
 import { bearerAuthMiddleware } from './middlewares/auth/auth-middlewares'
 
 const app = createApp()
 
 // 2 Way to do it
 const routes = [
+  auth,
   index,
   user,
-  auth,
   idea,
   chat,
 ] as const // this lets typescript know it wont change at runtime

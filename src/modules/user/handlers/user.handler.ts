@@ -1,14 +1,11 @@
 import type { AppRouteHandler } from '@/lib/types'
-import type { UserCreateRoute, UserDeleteRoute, UserGetOneRoute, UserListRoute, UserPatchRoute } from '../routes/user.routes'
+import type { UserCreateRoute, UserDeleteRoute, UserGetLoggedRoute, UserGetOneRoute, UserListRoute, UserPatchRoute } from '../routes/user.routes'
 import { log } from 'node:console'
 import * as HttpStatusCodes from 'stoker/http-status-codes'
 import * as HttpStatusPhrases from 'stoker/http-status-phrases'
 import * as userService from '../services/user.service'
 
 export const userList: AppRouteHandler<UserListRoute> = async (ctx) => {
-  // eslint-disable-next-line no-console
-  console.log(69, ctx.get('user'))
-
   const result = await userService.findAll()
   return ctx.json(result, HttpStatusCodes.OK)
 }
@@ -23,6 +20,22 @@ export const userList: AppRouteHandler<UserListRoute> = async (ctx) => {
 export const getOneUser: AppRouteHandler<UserGetOneRoute> = async (ctx) => {
   const { id } = ctx.req.valid('param')
   const user = await userService.findOne(id.toString())
+
+  if (!user) {
+    return ctx.json(
+      {
+        message: HttpStatusPhrases.NOT_FOUND,
+      },
+      HttpStatusCodes.NOT_FOUND,
+    )
+  }
+
+  return ctx.json(user, HttpStatusCodes.OK)
+}
+
+export const getLoggedUser: AppRouteHandler<UserGetLoggedRoute> = async (ctx) => {
+  const loggedUser = ctx.get('user')
+  const user = await userService.findOne(loggedUser.sub)
 
   if (!user) {
     return ctx.json(
