@@ -50,6 +50,23 @@ export const getOneUser = createRoute({
   },
 })
 
+export const getLoggedUser = createRoute({
+  path: '/users/me',
+  method: 'get',
+  tags,
+  summary: 'Get Logged User',
+  responses: {
+    [HttpStatusCodes.OK]: jsonContent(
+      UserZodSchemaZod,
+      'The Logged user',
+    ),
+    [HttpStatusCodes.NOT_FOUND]: jsonContent(
+      notFoundSchema,
+      'User not found',
+    ),
+  },
+})
+
 export const userCreate = createRoute({
   path: '/users',
   method: 'post',
@@ -138,5 +155,6 @@ export const deleteOneUser = createRoute({
 export type UserListRoute = typeof userList
 export type UserCreateRoute = typeof userCreate
 export type UserGetOneRoute = typeof getOneUser
+export type UserGetLoggedRoute = typeof getLoggedUser
 export type UserPatchRoute = typeof userUpdate
 export type UserDeleteRoute = typeof deleteOneUser
