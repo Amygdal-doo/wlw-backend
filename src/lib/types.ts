@@ -1,6 +1,4 @@
-import type { UserZodType } from '@/modules/user/validations/user.schema'
 import type { OpenAPIHono, RouteConfig, RouteHandler } from '@hono/zod-openapi'
-import type { JwtVariables } from 'hono/jwt'
 import type { PinoLogger } from 'hono-pino'
 
 export interface IJwtpayload {
@@ -11,17 +9,13 @@ export interface IJwtpayload {
   [key: string]: any
 }
 
-type Variables = JwtVariables<IJwtpayload>
+interface Variables {
+  logger: PinoLogger
+  user: IJwtpayload
+}
 
 export interface AppBindings {
-  Variables: {
-    logger: PinoLogger
-    variables: Variables
-    message: string
-    user: UserZodType
-  }
-  // JwtPayload: IJwtpayload
-
+  Variables: Variables
 }
 
 export type AppOpenAPI = OpenAPIHono<AppBindings>

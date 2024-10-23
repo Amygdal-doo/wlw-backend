@@ -6,7 +6,12 @@ import chat from '@/modules/chat/routes'
 import idea from '@/modules/idea/routes'
 import index from '@/modules/root/routes/index.route'
 import user from '@/modules/user/routes'
+import { bearerAuth } from 'hono/bearer-auth'
+import { cors } from 'hono/cors'
 import { jwt } from 'hono/jwt'
+import { verify } from 'hono/utils/jwt/jwt'
+import env from './env'
+import { bearerAuthMiddleware } from './middlewares/auth/auth-middlewares'
 
 const app = createApp()
 
@@ -22,26 +27,25 @@ const routes = [
 // The OpenAPI documentation will be available at /doc
 configureOpenApi(app)
 
+app.use('/*', cors())
+
 // 1 Way to do it
 // or another way is to chain this and export the _app
 // const _app = app
 //     .route('/api/', index)
 //     .route('/api/', user)
 
-app.use('/api/auth/login', (c, next) => {
-  c.set('message', 'costum message edited')
+app.use('/api/users/*', bearerAuthMiddleware)
 
-  return next()
+app.use('/api/users/*', async (c, next) => {
+  const payload = c.get('user')
+  const token = c.req.header('Authorization')
+  // eslint-disable-next-line no-console
+  console.log({ payload, token })
+  await next()
 })
 
-app.use(
-  '/auth/*',
-  jwt({
-    secret: 'it-is-very-secret',
-  }),
-)
-
-// Every route will be available at /
+// Every route will be available at /api
 routes.forEach((route) => {
   app.route('/api/', route)
 })

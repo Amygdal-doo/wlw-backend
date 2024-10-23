@@ -16,7 +16,7 @@ export default function configureOpenApi(app: AppOpenAPI) {
   app.get(
     '/reference',
     apiReference({
-      theme: 'deepSpace',
+      theme: 'bluePlanet',
       layout: 'classic',
       defaultHttpClient: {
         targetKey: 'javascript',
