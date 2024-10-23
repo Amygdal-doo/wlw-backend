@@ -1,12 +1,13 @@
 import type { AppRouteHandler } from '@/lib/types'
 import type { UserCreateRoute, UserDeleteRoute, UserGetOneRoute, UserListRoute, UserPatchRoute } from '../routes/user.routes'
+import { log } from 'node:console'
 import * as HttpStatusCodes from 'stoker/http-status-codes'
 import * as HttpStatusPhrases from 'stoker/http-status-phrases'
 import * as userService from '../services/user.service'
 
 export const userList: AppRouteHandler<UserListRoute> = async (ctx) => {
   // eslint-disable-next-line no-console
-  console.log(`MESSAGE LIST: ${ctx.get('message')}`)
+  console.log(69, ctx.get('user'))
 
   const result = await userService.findAll()
   return ctx.json(result, HttpStatusCodes.OK)
@@ -36,10 +37,11 @@ export const getOneUser: AppRouteHandler<UserGetOneRoute> = async (ctx) => {
 }
 
 export const userUpdate: AppRouteHandler<UserPatchRoute> = async (ctx) => {
-  const { id } = ctx.req.valid('param')
+  // const { id } = ctx.req.valid('param')
   const userPatch = ctx.req.valid('json')
+  const loggedUser = ctx.get('user')
 
-  const result = await userService.updateOne(id.toString(), userPatch)
+  const result = await userService.updateOne(loggedUser.sub, userPatch)
 
   if (!result) {
     return ctx.json(
@@ -55,6 +57,17 @@ export const userUpdate: AppRouteHandler<UserPatchRoute> = async (ctx) => {
 
 export const deleteOneUser: AppRouteHandler<UserDeleteRoute> = async (ctx) => {
   const { id } = ctx.req.valid('param')
+
+  const loggedUser = ctx.get('user')
+
+  if (id.toString() !== loggedUser.sub) {
+    return ctx.json(
+      {
+        message: HttpStatusPhrases.FORBIDDEN,
+      },
+      HttpStatusCodes.FORBIDDEN,
+    )
+  }
 
   const deletedUser = await userService.deleteOne(id.toString())
   if (!deletedUser) {
