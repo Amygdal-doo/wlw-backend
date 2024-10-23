@@ -1,8 +1,8 @@
 import type { CreateIdeaSchemaType } from '../validations/create-idea.schema'
 import IdeaModel from '../schemas/ideas.schema'
 
-export async function findAll() {
-  const ideas = await IdeaModel.find({})
+export async function findAll(user: string) {
+  const ideas = await IdeaModel.find({ user })
   return ideas
 }
 
@@ -11,13 +11,25 @@ export async function findOne(id: string) {
   return idea
 }
 
+export async function getOneByUser(ideaId: string, userId: string) {
+  return IdeaModel.findOne({ _id: ideaId, user: userId })
+}
+
 export async function deleteOne(id: string) {
   const idea = await IdeaModel.findByIdAndDelete(id)
   return idea
 }
 
-export async function create(ideaData: CreateIdeaSchemaType) {
-  const idea = await IdeaModel.create(ideaData)
+export async function deleteOneByUser(ideaId: string, userId: string) {
+  const idea = await IdeaModel.deleteOne({ _id: ideaId, user: userId })
+  return idea
+}
+
+export async function create(content: string, user: string) {
+  const idea = await IdeaModel.create({
+    content,
+    user,
+  })
   return idea
 }
 

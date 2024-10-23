@@ -32,14 +32,16 @@ app.use('/*', cors())
 //     .route('/api/', user)
 
 app.use('/api/users/*', bearerAuthMiddleware)
+app.use('/api/idea/*', bearerAuthMiddleware)
+app.use('/api/chat/*', bearerAuthMiddleware)
 
-app.use('/api/users/*', async (c, next) => {
-  const payload = c.get('user')
-  const token = c.req.header('Authorization')
-  // eslint-disable-next-line no-console
-  console.log({ payload, token })
-  await next()
-})
+// app.use('/api/users/*', async (c, next) => {
+//   const payload = c.get('user')
+//   const token = c.req.header('Authorization')
+//   // eslint-disable-next-line no-console
+//   console.log({ payload, token })
+//   await next()
+// })
 
 // Every route will be available at /api
 routes.forEach((route) => {
