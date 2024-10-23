@@ -3,7 +3,7 @@ import { z } from 'zod'
 
 export const CreateIdeaSchemaZod = z.object({
   content: z.string(),
-  user: zId('User'),
+  // user: zId('User'),
 })
 
 export type CreateIdeaSchemaType = z.infer<typeof CreateIdeaSchemaZod>

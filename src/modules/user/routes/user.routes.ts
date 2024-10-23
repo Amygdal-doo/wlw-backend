@@ -1,11 +1,10 @@
-import { authorizationHeaderZodSchema, conflictSchema, forbiddenSchema, notFoundSchema, unauthorizedSchema } from '@/lib/constants'
+import { authorizationHeaderZodSchema, conflictSchema, forbiddenSchema, IdParamSchemaZod, notFoundSchema, unauthorizedSchema } from '@/lib/constants'
 import { UserZodSchemaZod } from '@/modules/user/validations/user.schema'
 import { createRoute, z } from '@hono/zod-openapi'
 import * as HttpStatusCodes from 'stoker/http-status-codes'
 import { jsonContent, jsonContentOneOf, jsonContentRequired } from 'stoker/openapi/helpers'
 import { createErrorSchema } from 'stoker/openapi/schemas'
 import { RegisterUserSchemaZod } from '../validations/create-user.schema'
-import { IdUserParamSchemaZod } from '../validations/id-user.param.schema'
 import { PatchUserSchemaZod } from '../validations/patch-user.schema'
 
 const tags = ['User']
@@ -32,7 +31,7 @@ export const getOneUser = createRoute({
   tags,
   summary: 'Get User By Id',
   request: {
-    params: IdUserParamSchemaZod,
+    params: IdParamSchemaZod,
   },
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
@@ -44,7 +43,7 @@ export const getOneUser = createRoute({
       'User not found',
     ),
     [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
-      createErrorSchema(IdUserParamSchemaZod),
+      createErrorSchema(IdParamSchemaZod),
       'Invalid Id error',
     ),
   },
@@ -131,7 +130,7 @@ export const deleteOneUser = createRoute({
   tags,
   summary: 'Delete User By Id',
   request: {
-    params: IdUserParamSchemaZod,
+    params: IdParamSchemaZod,
   },
   responses: {
     [HttpStatusCodes.NO_CONTENT]: {
@@ -142,7 +141,7 @@ export const deleteOneUser = createRoute({
       'User not found',
     ),
     [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
-      createErrorSchema(IdUserParamSchemaZod),
+      createErrorSchema(IdParamSchemaZod),
       'Invalid Id error',
     ),
     [HttpStatusCodes.FORBIDDEN]: jsonContent(
