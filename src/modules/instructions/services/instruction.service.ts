@@ -8,8 +8,8 @@ export async function findOne(userId: string) {
 
 export async function createOne(data: CreateInstructionsSchemaZodType, userId: string) {
   const newInstruction = await InstructionModel.create({
-    howToAnswer: data.howToAnswer === '' ? null : data.howToAnswer,
-    betterAnswers: data.betterAnswers === '' ? null : data.betterAnswers,
+    howToAnswer: data.howToAnswer === '' ? undefined : data.howToAnswer,
+    betterAnswers: data.betterAnswers === '' ? undefined : data.betterAnswers,
     userId,
   })
   return newInstruction
