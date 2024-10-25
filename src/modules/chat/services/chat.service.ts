@@ -44,3 +44,8 @@ export async function getOne(id: string, userId: string) {
   const chat = await ChatModel.findOne({ _id: id, userId })
   return chat
 }
+
+export async function deleteOneByUser(chatId: string, userId: string) {
+  const idea = await ChatModel.deleteOne({ _id: chatId, user: userId })
+  return idea
+}

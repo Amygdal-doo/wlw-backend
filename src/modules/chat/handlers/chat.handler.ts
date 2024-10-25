@@ -1,6 +1,6 @@
 import type { AppRouteHandler } from '@/lib/types'
 import type { ChatCompletionMessageParam } from 'openai/resources/index.mjs'
-import type { ChatRouteType, ChatsHistoryRouteType, GetOneChatRouteType, SaveChatRouteType } from '../routes/chat.routes'
+import type { ChatRouteType, ChatsHistoryRouteType, DeleteOneChatRouteType, GetOneChatRouteType, SaveChatRouteType } from '../routes/chat.routes'
 import type { RequestBodyChatZodType } from '../validations/messages.schema'
 import { log } from 'node:console'
 import { completion } from '@/lib/open-ai'
@@ -77,4 +77,15 @@ export const getOneChatHandler: AppRouteHandler<GetOneChatRouteType> = async (ct
   }
 
   return ctx.json(chat, HttpStatusCodes.OK)
+}
+
+export const deleteChatHandler: AppRouteHandler<DeleteOneChatRouteType> = async (ctx) => {
+  const loggedUser = ctx.get('user')
+  const { id } = ctx.req.valid('param')
+  const deletedChat = await chatService.deleteOneByUser(id.toString(), loggedUser.sub)
+  if (!deletedChat) {
+    return ctx.json({ message: HttpStatusPhrases.NOT_FOUND }, HttpStatusCodes.NOT_FOUND,
+    )
+  }
+  return ctx.body(null, HttpStatusCodes.NO_CONTENT)
 }

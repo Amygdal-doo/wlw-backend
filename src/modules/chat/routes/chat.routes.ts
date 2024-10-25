@@ -96,7 +96,31 @@ export const getOneChat = createRoute({
   },
 })
 
+export const deleteOneChat = createRoute({
+  path: '/chat/{id}',
+  method: 'delete',
+  tags,
+  summary: 'Delete chat By Id',
+  request: {
+    params: IdParamSchemaZod,
+  },
+  responses: {
+    [HttpStatusCodes.NO_CONTENT]: {
+      description: 'Chat deleted',
+    },
+    [HttpStatusCodes.NOT_FOUND]: jsonContent(
+      notFoundSchema,
+      'Chat not found',
+    ),
+    [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
+      createErrorSchema(IdParamSchemaZod),
+      'Invalid Id error',
+    ),
+  },
+})
+
 export type ChatRouteType = typeof chat
 export type SaveChatRouteType = typeof saveChat
 export type ChatsHistoryRouteType = typeof chatsHistory
 export type GetOneChatRouteType = typeof getOneChat
+export type DeleteOneChatRouteType = typeof deleteOneChat

@@ -7,5 +7,6 @@ const router = createRouter()
   .openapi(routes.saveChat, handlers.saveChatHandler)
   .openapi(routes.chatsHistory, handlers.chatsHistoryHandler)
   .openapi(routes.getOneChat, handlers.getOneChatHandler)
+  .openapi(routes.deleteOneChat, handlers.deleteChatHandler)
 
 export default router
