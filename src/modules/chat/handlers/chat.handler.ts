@@ -82,10 +82,12 @@ export const getOneChatHandler: AppRouteHandler<GetOneChatRouteType> = async (ct
 export const deleteChatHandler: AppRouteHandler<DeleteOneChatRouteType> = async (ctx) => {
   const loggedUser = ctx.get('user')
   const { id } = ctx.req.valid('param')
-  const deletedChat = await chatService.deleteOneByUser(id.toString(), loggedUser.sub)
-  if (!deletedChat) {
+  const chat = await chatService.getOne(id.toString(), loggedUser.sub)
+  if (!chat) {
     return ctx.json({ message: HttpStatusPhrases.NOT_FOUND }, HttpStatusCodes.NOT_FOUND,
     )
   }
+  // await chatService.deleteOneByUser(id.toString(), loggedUser.sub)
+  await chatService.deleteOneById(chat._id)
   return ctx.body(null, HttpStatusCodes.NO_CONTENT)
 }

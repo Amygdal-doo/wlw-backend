@@ -46,6 +46,9 @@ export async function getOne(id: string, userId: string) {
 }
 
 export async function deleteOneByUser(chatId: string, userId: string) {
-  const idea = await ChatModel.deleteOne({ _id: chatId, user: userId })
-  return idea
+  await ChatModel.deleteOne({ _id: chatId, user: userId })
+}
+
+export async function deleteOneById(chatId: string) {
+  await ChatModel.deleteOne({ _id: chatId })
 }
