@@ -16,6 +16,14 @@ export const InstructionUpdate: AppRouteHandler<InstructionPatchRoute> = async (
     await instructionService.updateOne(patch, findExisting._id)
   }
   else {
+    // if (patch.betterAnswers === '' || patch.howToAnswer === '') {
+    //   return ctx.json(
+    //     {
+    //       message: HttpStatusPhrases.BAD_REQUEST,
+    //     },
+    //     HttpStatusCodes.BAD_REQUEST,
+    //   )
+    // }
     await instructionService.createOne(patch, loggedUser.sub)
   }
 

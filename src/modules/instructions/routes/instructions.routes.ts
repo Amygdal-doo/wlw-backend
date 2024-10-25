@@ -1,4 +1,4 @@
-import { notFoundSchema, okSchema } from '@/lib/constants'
+import { badRequestSchema, notFoundSchema, okSchema } from '@/lib/constants'
 import { createRoute } from '@hono/zod-openapi'
 import * as HttpStatusCodes from 'stoker/http-status-codes'
 import { jsonContent, jsonContentRequired } from 'stoker/openapi/helpers'
@@ -23,8 +23,12 @@ export const instructionUpdate = createRoute({
   responses: {
     [HttpStatusCodes.OK]: jsonContent(
       okSchema,
-      'The updated User',
+      'The updated Instruction',
     ),
+    // [HttpStatusCodes.BAD_REQUEST]: jsonContent(
+    //   badRequestSchema,
+    //   'When creating instruction fields cant be empty',
+    // ),
     [HttpStatusCodes.UNPROCESSABLE_ENTITY]: jsonContent(
       createErrorSchema(CreateInstructionsSchemaZod),
       'The validation error(s)',

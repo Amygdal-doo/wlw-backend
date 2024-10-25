@@ -2,8 +2,8 @@ import type { InstructionZodType } from '../validations/instruction.schema'
 import mongoose, { model, Schema } from 'mongoose'
 
 const InstructionSchema = new Schema<InstructionZodType>({
-  howToAnswer: { type: String, required: true, unique: true, maxlength: 1000 },
-  betterAnswers: { type: String, required: true, unique: true, maxlength: 1000 },
+  howToAnswer: { type: String, required: false, unique: true, maxlength: 1000 },
+  betterAnswers: { type: String, required: false, unique: true, maxlength: 1000 },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
