@@ -4,5 +4,8 @@ import * as routes from './chat.routes'
 
 const router = createRouter()
   .openapi(routes.chat, handlers.chatHandler)
+  .openapi(routes.saveChat, handlers.saveChatHandler)
+  .openapi(routes.chatsHistory, handlers.chatsHistoryHandler)
+  .openapi(routes.getOneChat, handlers.getOneChatHandler)
 
 export default router

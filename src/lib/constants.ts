@@ -25,6 +25,7 @@ export const badRequestSchema = createMessageObjectSchema(HttpStatusPhrases.BAD_
 export const unauthorizedSchema = createMessageObjectSchema(HttpStatusPhrases.UNAUTHORIZED)
 export const forbiddenSchema = createMessageObjectSchema(HttpStatusPhrases.FORBIDDEN)
 export const internalServerErrorSchema = createMessageObjectSchema(HttpStatusPhrases.INTERNAL_SERVER_ERROR)
+export const okSchema = createMessageObjectSchema(HttpStatusPhrases.OK)
 export const SaltRounds = 10
 
 export const authorizationHeaderZodSchema = z.object({ Authorization: z.string() })

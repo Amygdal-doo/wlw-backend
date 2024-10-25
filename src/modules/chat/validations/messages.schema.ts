@@ -1,7 +1,8 @@
 import { z } from 'zod'
+import { MessageRoleEnum } from '../schemas/chat.schema'
 
 export const MessageSchemaZod = z.object({
-  role: z.enum(['system', 'user', 'assistant']).default('user'),
+  role: z.enum(['user', 'assistant', 'system']).default('user'),
   content: z.string(),
   name: z.string().optional(),
 })

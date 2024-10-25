@@ -4,6 +4,7 @@ import createApp from '@/lib/create-app'
 import auth from '@/modules/auth/routes'
 import chat from '@/modules/chat/routes'
 import idea from '@/modules/idea/routes'
+import instruction from '@/modules/instructions/routes/index.routes'
 import index from '@/modules/root/routes/index.route'
 import user from '@/modules/user/routes'
 import { cors } from 'hono/cors'
@@ -18,6 +19,7 @@ const routes = [
   user,
   idea,
   chat,
+  instruction,
 ] as const // this lets typescript know it wont change at runtime
 
 // The OpenAPI documentation will be available at /doc
@@ -34,6 +36,7 @@ app.use('/*', cors())
 app.use('/api/users/*', bearerAuthMiddleware)
 app.use('/api/idea/*', bearerAuthMiddleware)
 app.use('/api/chat/*', bearerAuthMiddleware)
+app.use('/api/instructions/*', bearerAuthMiddleware)
 
 // app.use('/api/users/*', async (c, next) => {
 //   const payload = c.get('user')
