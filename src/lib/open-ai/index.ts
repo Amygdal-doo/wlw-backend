@@ -15,6 +15,7 @@ export async function completion(msg: ChatCompletionMessageParam, msgs: ChatComp
       role: 'system',
       content: 'You are a helpful assistant.',
     }
+
     if (instructions) {
       if (instructions.howToAnswer) {
         systemcontent.content = `${systemcontent.content} Instructions for response style: ${instructions.howToAnswer}.`

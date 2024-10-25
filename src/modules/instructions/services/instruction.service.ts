@@ -12,6 +12,13 @@ export async function createOne(data: CreateInstructionsSchemaZodType, userId: s
 }
 
 export async function updateOne(data: CreateInstructionsSchemaZodType, instructionId: string) {
-  const updatedInstruction = await InstructionModel.findOneAndUpdate({ _id: instructionId }, data, { new: true })
+  // check if data.howToAnswer === '' set it to null likevise for betterAnswers
+  const updatedInstruction = await InstructionModel
+    .findOneAndUpdate({
+      _id: instructionId,
+    }, {
+      howToAnswer: data.howToAnswer === '' ? null : data.howToAnswer,
+      betterAnswers: data.betterAnswers === '' ? null : data.betterAnswers,
+    }, { new: true })
   return updatedInstruction
 }

@@ -1,7 +1,7 @@
 import type { z } from 'zod'
 import { InstructionSchemaZod } from './instruction.schema'
 
-export const CreateInstructionsSchemaZod = InstructionSchemaZod.partial().pick({
+export const CreateInstructionsSchemaZod = InstructionSchemaZod.pick({
   howToAnswer: true,
   betterAnswers: true,
 })
